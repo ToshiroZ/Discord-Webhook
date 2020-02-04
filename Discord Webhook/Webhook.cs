@@ -1,6 +1,7 @@
 ﻿using Discord_Webhook;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 
 namespace Discord.Webhook
@@ -39,21 +40,10 @@ namespace Discord.Webhook
         }
         public void Send(WebhookObject obj)
         {
-            try
+            using (WebClient wb = new WebClient())
             {
-                HttpClient client = new HttpClient();
-                Dictionary<string, string> contents = new Dictionary<string, string>
-                    {
-                        { "content", obj.ToString() },
-                        { "username", _username },
-                        { "avatar_url", _avatarurl }
-                    };
-
-                client.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
-            }
-            catch (Exception e)
-            {
-                throw e;
+                wb.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                wb.UploadString(_url, "POST", obj.ToString());
             }
         }
     }

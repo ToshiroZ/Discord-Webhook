@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord Webhook", "Discord Webhook\Discord Webhook.csproj", "{918CB251-598B-4227-8C29-FCB442FB31B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingApp", "TestingApp\TestingApp.csproj", "{957316D9-8C5F-4761-9EFD-9AA3734ADAA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{918CB251-598B-4227-8C29-FCB442FB31B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{918CB251-598B-4227-8C29-FCB442FB31B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{918CB251-598B-4227-8C29-FCB442FB31B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957316D9-8C5F-4761-9EFD-9AA3734ADAA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957316D9-8C5F-4761-9EFD-9AA3734ADAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957316D9-8C5F-4761-9EFD-9AA3734ADAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957316D9-8C5F-4761-9EFD-9AA3734ADAA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,9 +8,11 @@
     <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
-    <Description>Used for sending webhooks to  discord using the discord webhook url</Description>
+    <Description>Used for sending webhooks to  discord using the discord webhook url
+doesnt use any nuget packages or libraries all self contained</Description>
     <Authors>Toshiro Tanazaki</Authors>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
