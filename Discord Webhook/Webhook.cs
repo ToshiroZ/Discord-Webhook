@@ -31,7 +31,10 @@ namespace Discord.Webhook
 
                 client.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
             }
-            catch { }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
