@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discord_Webhook;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
@@ -25,6 +26,25 @@ namespace Discord.Webhook
                 Dictionary<string, string> contents = new Dictionary<string, string>
                     {
                         { "content", message },
+                        { "username", _username },
+                        { "avatar_url", _avatarurl }
+                    };
+
+                client.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public void Send(WebhookObject obj)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                Dictionary<string, string> contents = new Dictionary<string, string>
+                    {
+                        { "content", obj.ToString() },
                         { "username", _username },
                         { "avatar_url", _avatarurl }
                     };
