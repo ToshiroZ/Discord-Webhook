@@ -4,9 +4,9 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace Discord_Webhook
+namespace Discord.Webhook
 {
-    public static class JSONSerializer<TType> where TType : class
+    internal class JSONSerializer<TType> where TType : class
     {
         /// <summary>
         /// Serializes an object to JSON

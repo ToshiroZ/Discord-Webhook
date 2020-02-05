@@ -1,5 +1,4 @@
-﻿using Discord_Webhook;
-using Discord.Webhook;
+﻿using Discord.Webhook;
 using System;
 
 namespace TestingApp
@@ -13,7 +12,8 @@ namespace TestingApp
             embeds[0] = new Embed
             {
                 description = "HI",
-                title = " hefwq"
+                title = " hefwq",
+                Color = new DColor(255, 0, 255)
             };
             var webobj = new WebhookObject
             {
