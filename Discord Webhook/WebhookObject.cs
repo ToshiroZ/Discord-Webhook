@@ -133,10 +133,8 @@ namespace Discord.Webhook
         [DataMember]
         public string proxy_icon_url;
     }
-    [DataContract]
     public class DColor
     {
-        [DataMember]
         internal uint RawValue { get; }
         public DColor(int r, int g, int b)
         {
