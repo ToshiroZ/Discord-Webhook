@@ -1,27 +1,27 @@
 ﻿using Discord.Webhook;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TestingApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var url = Console.ReadLine();
-            var embeds = new Embed[1];
-            embeds[0] = new Embed
-            {
-                description = "HI",
-                title = " hefwq",
-                Color = new DColor(255, 0, 255)
-            };
+            
             var webobj = new WebhookObject
             {
-                content = "Testing",
-                embeds = embeds,
-                username = "Toshi"
+                content = "Testing"
             };
-            new Webhook(url).Send(webobj);
+            webobj.embeds.Add(new Embed
+            {
+                description = "async",
+                title = " hefwq",
+                Color = new DColor(255, 0, 255)
+            });
+            await new Webhook(url).SendAsync("gug");
         }
     }
 }

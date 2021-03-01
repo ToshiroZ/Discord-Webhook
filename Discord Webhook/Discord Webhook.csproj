@@ -6,20 +6,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Discord.Webhook</PackageId>
     <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
     <Description>Used for sending webhooks to  discord using the discord webhook url
 it is also dependency free</Description>
     <Authors>Toshiro Tanazaki</Authors>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile></PackageLicenseFile>
     <Version>1.0.3</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\..\Desktop\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>

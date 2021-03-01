@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Discord Webhook">
-      <HintPath>..\Discord Webhook\bin\Debug\netstandard2.0\Discord Webhook.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Discord Webhook\Discord Webhook.csproj" />
   </ItemGroup>
 
 </Project>
