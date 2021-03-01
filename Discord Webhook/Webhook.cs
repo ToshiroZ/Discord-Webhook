@@ -104,7 +104,7 @@ namespace Discord.Webhook
             {
                 var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
-                webhookClient.PostAsync(_url, json).GetAwaiter().GetResult();
+                await webhookClient.PostAsync(_url, json);
             }
             catch (Exception e)
             {
