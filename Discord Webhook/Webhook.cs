@@ -71,6 +71,20 @@ namespace Discord.Webhook
             }
         }
         /// <summary>
+        /// deletes the webhook
+        /// </summary>
+        public void Delete()
+        {
+            try
+            {
+                webhookClient.DeleteAsync(_url).GetAwaiter().GetResult();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        /// <summary>
         /// send a message to the discord webhook asynchronously
         /// </summary>
         /// <param name="message"></param>
@@ -105,6 +119,21 @@ namespace Discord.Webhook
                 var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
                 await webhookClient.PostAsync(_url, json);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        /// <summary>
+        /// Deletes the webhook asynchronously
+        /// </summary>
+        /// <returns></returns>
+        public async Task DeleteAsync()
+        {
+            try
+            {
+                await webhookClient.DeleteAsync(_url);
             }
             catch (Exception e)
             {
