@@ -12,9 +12,10 @@
 it is also dependency free</Description>
     <Authors>Toshiro Tanazaki</Authors>
     <PackageLicenseFile></PackageLicenseFile>
-    <Version>1.0.3</Version>
-    <PackageReleaseNotes>So I recoded a lot of the library to be better. It should be easier to use. I am now commenting on what shit does what so you should have a bit more info on it.
-I changed the arrays of embeds and fields to be list and in the constructor I am setting them to new List so you wont have any null reference exceptions. You can call Add on the embed list and field list as well without any exceptions. Easier to use and easier to work with now. Also there is now asynchronous calls to send and non asynchronous calls. I moved everything to use a single httpclient in the class. All in all a lot of bug fixes and ease of use upgrades.</PackageReleaseNotes>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>Deleting webhooks</PackageReleaseNotes>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
 </Project>

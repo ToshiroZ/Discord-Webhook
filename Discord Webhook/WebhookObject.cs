@@ -50,6 +50,7 @@ namespace Discord.Webhook
         /// <returns></returns>
         public override string ToString()
         {
+            content = content == null ? string.Empty : content;
             if (embeds.Count > 25) throw new Exception("You can only have a maximum of 25 embeds in a message");
             if (embeds.Any(x => x.fields.Count > 25)) throw new Exception("You can only have a maximum of 25 fields in an embed");
             if (content.Length > 1024) throw new Exception("You can only have a maximum of 1024 characters in a message");

@@ -13,7 +13,7 @@ namespace TestingApp
             
             var webobj = new WebhookObject
             {
-                content = "Testing"
+                content = null
             };
             webobj.embeds.Add(new Embed
             {
@@ -21,7 +21,7 @@ namespace TestingApp
                 title = " hefwq",
                 Color = new DColor(255, 0, 255)
             });
-            await new Webhook(url).SendAsync("gug");
+            await new Webhook(url).SendAsync(webobj);
         }
     }
 }
