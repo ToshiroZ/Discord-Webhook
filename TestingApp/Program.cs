@@ -18,8 +18,8 @@ namespace TestingApp
             webobj.embeds.Add(new Embed
             {
                 description = "async",
-                title = " hefwq",
-                Color = new DColor(255, 0, 255)
+                title = "Testing Webhook",
+                Color = Colors.Magenta
             });
             await new Webhook(url).SendAsync(webobj);
         }

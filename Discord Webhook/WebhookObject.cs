@@ -57,7 +57,7 @@ namespace Discord.Webhook
             if(embeds.Any(x => x.description.Length > 1024 || x.fields.Any(y => y.value.ToString().Length > 1024))) throw new Exception("You can only have a maximum of 1024 characters in a message");
             foreach (Embed embed in embeds)
             {
-                embed.Color = embed.Color == null ? new DColor(0, 0, 0) : embed.Color;
+                embed.Color = embed.Color == null ? Colors.Black : embed.Color;
                 embed.color = (int)embed.Color.RawValue;
             }
             return JSONSerializer<WebhookObject>.Serialize(this);
