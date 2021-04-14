@@ -18,6 +18,7 @@ namespace Discord.Webhook
         public WebhookObject()
         {
             embeds = new List<Embed>();
+            content = null;
         }
         /// <summary>
         /// The message of the embed
@@ -61,6 +62,23 @@ namespace Discord.Webhook
                 embed.color = (int)embed.Color.RawValue;
             }
             return JSONSerializer<WebhookObject>.Serialize(this);
+        }
+
+        public void AddEmbed(EmbedBuilder embedBuilder)
+        {
+            embeds.Add(embedBuilder.Build());
+        }
+        
+        public void AddEmbed(Embed embed)
+        {
+            embeds.Add(embed);
+        }
+
+        public void AddEmbed(Action<EmbedBuilder> embedBuilderFunction)
+        {
+            var embedBuilder = new EmbedBuilder();
+            embedBuilderFunction(embedBuilder);
+            AddEmbed(embedBuilder);
         }
     }
     /// <summary>
