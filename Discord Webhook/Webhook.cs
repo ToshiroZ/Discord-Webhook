@@ -12,7 +12,7 @@ namespace Discord.Webhook
     /// </summary>
     public class Webhook
     {
-        private static HttpClient webhookClient = new HttpClient();
+        private static readonly HttpClient _webhookClient = new HttpClient();
         private readonly string _url;
         private readonly string _username = null;
         private readonly string _avatarurl = null;
@@ -44,7 +44,7 @@ namespace Discord.Webhook
                         { "avatar_url", _avatarurl }
                     };
 
-                webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
+                _webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
             }
             catch (Exception e)
             {
@@ -59,11 +59,11 @@ namespace Discord.Webhook
         {
             try
             {
-                obj.username = _username == null ? obj.username : _username;
+                obj.username = _username ?? obj.username;
                 obj.avatar_url = _username == null ? obj.avatar_url : _avatarurl;
                 var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
-                webhookClient.PostAsync(_url, json).GetAwaiter().GetResult();
+                _webhookClient.PostAsync(_url, json).GetAwaiter().GetResult();
             }
             catch (Exception e)
             {
@@ -77,7 +77,7 @@ namespace Discord.Webhook
         {
             try
             {
-                webhookClient.DeleteAsync(_url).GetAwaiter().GetResult();
+                _webhookClient.DeleteAsync(_url).GetAwaiter().GetResult();
             }
             catch (Exception e)
             {
@@ -100,7 +100,7 @@ namespace Discord.Webhook
                         { "avatar_url", _avatarurl }
                     };
 
-                await webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents));
+                await _webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents));
             }
             catch (Exception e)
             {
@@ -118,7 +118,7 @@ namespace Discord.Webhook
             {
                 var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
-                await webhookClient.PostAsync(_url, json);
+                await _webhookClient.PostAsync(_url, json);
             }
             catch (Exception e)
             {
@@ -133,7 +133,7 @@ namespace Discord.Webhook
         {
             try
             {
-                await webhookClient.DeleteAsync(_url);
+                await _webhookClient.DeleteAsync(_url);
             }
             catch (Exception e)
             {

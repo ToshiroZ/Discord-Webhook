@@ -13,7 +13,7 @@ it is also dependency free</Description>
     <Authors>Toshiro Tanazaki</Authors>
     <PackageLicenseFile></PackageLicenseFile>
     <Version>1.0.4</Version>
-    <PackageReleaseNotes>Deleting webhooks</PackageReleaseNotes>
+    <PackageReleaseNotes>Added EmbedBuilder</PackageReleaseNotes>
     <AssemblyVersion>1.0.4.0</AssemblyVersion>
     <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>

@@ -51,29 +51,40 @@ namespace Discord.Webhook
         /// <returns></returns>
         public override string ToString()
         {
-            content = content == null ? string.Empty : content;
+            content = content ?? string.Empty;
             if (embeds.Count > 25) throw new Exception("You can only have a maximum of 25 embeds in a message");
             if (embeds.Any(x => x.fields.Count > 25)) throw new Exception("You can only have a maximum of 25 fields in an embed");
             if (content.Length > 1024) throw new Exception("You can only have a maximum of 1024 characters in a message");
             if(embeds.Any(x => x.description.Length > 1024 || x.fields.Any(y => y.value.ToString().Length > 1024))) throw new Exception("You can only have a maximum of 1024 characters in a message");
             foreach (Embed embed in embeds)
             {
-                embed.Color = embed.Color == null ? Colors.Black : embed.Color;
+                embed.Color = embed.Color ?? Colors.Black;
                 embed.color = (int)embed.Color.RawValue;
             }
             return JSONSerializer<WebhookObject>.Serialize(this);
         }
 
+        /// <summary>
+        /// Adds an embed through the embedbuilder
+        /// </summary>
+        /// <param name="embedBuilder"></param>
         public void AddEmbed(EmbedBuilder embedBuilder)
         {
             embeds.Add(embedBuilder.Build());
         }
         
+        /// <summary>
+        /// Adds an embed
+        /// </summary>
+        /// <param name="embed"></param>
         public void AddEmbed(Embed embed)
         {
             embeds.Add(embed);
         }
-
+        /// <summary>
+        /// Adds an embed through an action 
+        /// </summary>
+        /// <param name="embedBuilderFunction"></param>
         public void AddEmbed(Action<EmbedBuilder> embedBuilderFunction)
         {
             var embedBuilder = new EmbedBuilder();

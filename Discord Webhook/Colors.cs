@@ -1,5 +1,8 @@
 namespace Discord.Webhook
 {
+    /// <summary>
+    /// Literally just colors
+    /// </summary>
     public static class Colors
     {
         public static readonly DColor Red = new DColor(231, 76, 70); //https://www.spycolor.com/e74c3c#
