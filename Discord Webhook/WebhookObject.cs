@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace Discord.Webhook
 {
@@ -65,31 +64,38 @@ namespace Discord.Webhook
         }
 
         /// <summary>
-        /// Adds an embed through the embedbuilder
+        /// Adds an embed using the <see cref="EmbedBuilder"/>
         /// </summary>
-        /// <param name="embedBuilder"></param>
-        public void AddEmbed(EmbedBuilder embedBuilder)
+        /// <param name="builder">The builder to use when adding the embed</param>
+        /// <returns>The updated <see cref="WebhookObject"/> with the new embed</returns>
+        public WebhookObject AddEmbed(EmbedBuilder builder)
         {
-            embeds.Add(embedBuilder.Build());
+            embeds.Add(builder.Build());
+            return this;
         }
         
         /// <summary>
         /// Adds an embed
         /// </summary>
-        /// <param name="embed"></param>
-        public void AddEmbed(Embed embed)
+        /// <param name="embed">The embed to add to the collection</param>
+        /// <returns>The updated <see cref="WebhookObject"/> with the new embed</returns>
+        public WebhookObject AddEmbed(Embed embed)
         {
             embeds.Add(embed);
+            return this;
         }
+        
         /// <summary>
-        /// Adds an embed through an action 
+        /// Adds an embed using the <see cref="EmbedBuilder"/> with an <see cref="Action"/>
         /// </summary>
-        /// <param name="embedBuilderFunction"></param>
-        public void AddEmbed(Action<EmbedBuilder> embedBuilderFunction)
+        /// <param name="builder">The builder to use when adding the embed</param>
+        public WebhookObject AddEmbed(Action<EmbedBuilder> builder)
         {
             var embedBuilder = new EmbedBuilder();
-            embedBuilderFunction(embedBuilder);
+            builder(embedBuilder);
             AddEmbed(embedBuilder);
+
+            return this;
         }
     }
     /// <summary>
@@ -326,14 +332,17 @@ namespace Discord.Webhook
             {
                 throw new ArgumentOutOfRangeException(nameof(r), "Value must be within [0,255].");
             }
+            
             if (g < 0 || g > 255)
             {
                 throw new ArgumentOutOfRangeException(nameof(g), "Value must be within [0,255].");
             }
+            
             if (b < 0 || b > 255)
             {
                 throw new ArgumentOutOfRangeException(nameof(b), "Value must be within [0,255].");
             }
+            
             RawValue =
                 ((uint)r << 16) |
                 ((uint)g << 8) |
