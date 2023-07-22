@@ -1,21 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Discord_Webhook</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>Discord.Webhook</PackageId>
-    <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
-    <Description>Used for sending webhooks to  discord using the discord webhook url
-it is also dependency free</Description>
-    <Authors>Toshiro Tanazaki</Authors>
-    <PackageLicenseFile></PackageLicenseFile>
-    <Version>1.0.4</Version>
-    <PackageReleaseNotes>Added EmbedBuilder</PackageReleaseNotes>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Discord.Webhook</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>Discord.Webhook</PackageId>
+        <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
+        <Description>Used for sending webhooks to  discord using the discord webhook url
+            it is also dependency free</Description>
+        <Authors>Toshiro Tanazaki</Authors>
+        <PackageLicenseFile></PackageLicenseFile>
+        <Version>1.0.4</Version>
+        <PackageReleaseNotes>Added EmbedBuilder</PackageReleaseNotes>
+        <AssemblyVersion>1.0.4.0</AssemblyVersion>
+        <FileVersion>1.0.4.0</FileVersion>
+    </PropertyGroup>
 
 </Project>
