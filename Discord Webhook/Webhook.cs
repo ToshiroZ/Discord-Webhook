@@ -1,134 +1,112 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Discord.Webhook
 {
-    /// <summary>
-    ///     The class that handles sending requests to the discord webhook api
-    /// </summary>
-    public class Webhook
+	/// <summary>
+	///     The class that handles sending requests to the Discord webhook
+	/// </summary>
+	public class Webhook
 	{
-		private static readonly HttpClient _webhookClient = new HttpClient();
+		private static readonly HttpClient WebhookClient = new HttpClient();
 		private readonly string _url;
 		private readonly string _username;
 		private readonly string _avatarUrl;
 
-        /// <summary>
-        ///     The constructor for the webhook
-        /// </summary>
-        /// <param name="webhookUrl">The url for the webhook</param>
-        /// <param name="username">
-        ///     The username the webhook will send with if its null defaults to what was assigned in the webhook
-        ///     menu on discord
-        /// </param>
-        /// <param name="avatarUrl">
-        ///     The url to the picture the webhook will use if its null defaults to what was assigned in the
-        ///     webhook menu on discord
-        /// </param>
-        public Webhook(string webhookUrl, string username = null, string avatarUrl = null)
+		/// <summary>
+		///     Constructs a new Discord webhook object
+		/// </summary>
+		/// <param name="webhookUrl">The Discord webhook URL</param>
+		/// <param name="username">
+		///     The username the webhook will send with, if its null defaults to what was assigned in the webhook
+		///     menu on Discord
+		/// </param>
+		/// <param name="avatarUrl">
+		///     The URL that points to the avatar image the webhook will use, if its null defaults to what was assigned in the
+		///     webhook menu on Discord
+		/// </param>
+		public Webhook(string webhookUrl, string username = null, string avatarUrl = null)
 		{
 			_url = webhookUrl;
 			_username = username;
 			_avatarUrl = avatarUrl;
 		}
 
-        /// <summary>
-        ///     Sends a message to the discord webhook
-        /// </summary>
-        /// <param name="message"></param>
-        public void Send(string message)
-        {
-	        var contents = new Dictionary<string, string>
-	        {
-		        { "content", message },
-		        { "username", _username },
-		        { "avatar_url", _avatarUrl }
-	        };
-
-	        _webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        ///     sends a webhookobject to the discord webhook used mostly for embeds
-        /// </summary>
-        /// <param name="obj">the webhook object</param>
-        public void Send(WebhookObject obj)
-        {
-	        obj.username = _username ?? obj.username;
-	        obj.avatar_url = _username == null ? obj.avatar_url : _avatarUrl;
-	        var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
-
-	        _webhookClient.PostAsync(_url, json).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        ///     deletes the webhook
-        /// </summary>
-        public void Delete()
+		/// <summary>
+		///     Sends a message to the Discord webhook synchronously
+		/// </summary>
+		/// <param name="message">The string message to send to the webhook</param>
+		public void Send(string message)
 		{
-			try
+			var contents = new Dictionary<string, string>
 			{
-				_webhookClient.DeleteAsync(_url).GetAwaiter().GetResult();
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
+				{ "content", message },
+				{ "username", _username },
+				{ "avatar_url", _avatarUrl }
+			};
+
+			WebhookClient.PostAsync(_url, new FormUrlEncodedContent(contents)).GetAwaiter().GetResult();
 		}
 
-        /// <summary>
-        ///     send a message to the discord webhook asynchronously
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns>the message to send</returns>
-        public async Task SendAsync(string message)
+		/// <summary>
+		///     Sends a webhook object to the Discord webhook synchronously
+		/// </summary>
+		/// <param name="obj">The object to send to the webhook</param>
+		public void Send(WebhookObject obj)
 		{
-			try
-			{
-				var contents = new Dictionary<string, string>
-				{
-					{ "content", message },
-					{ "username", _username },
-					{ "avatar_url", _avatarUrl }
-				};
+			obj.username = _username ?? obj.username;
+			obj.avatar_url = _username == null ? obj.avatar_url : _avatarUrl;
+			var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
-				await _webhookClient.PostAsync(_url, new FormUrlEncodedContent(contents));
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
+			WebhookClient.PostAsync(_url, json).GetAwaiter().GetResult();
 		}
 
-        /// <summary>
-        ///     Send a webhook object to the discord api asynchronously
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public async Task SendAsync(WebhookObject obj)
+		/// <summary>
+		///     Deletes the webhook
+		/// </summary>
+		public void Delete()
 		{
-			try
-			{
-				var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
-
-				await _webhookClient.PostAsync(_url, json);
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
+			WebhookClient.DeleteAsync(_url).GetAwaiter().GetResult();
 		}
 
-        /// <summary>
-        ///     Deletes the webhook asynchronously
-        /// </summary>
-        /// <returns></returns>
-        public async Task DeleteAsync()
-        {
-	        await _webhookClient.DeleteAsync(_url);
-        }
+		/// <summary>
+		///     Sends a message to the Discord webhook asynchronously
+		/// </summary>
+		/// <param name="message">The string message to send to the webhook</param>
+		/// <returns>A <see cref="Task" /> representing the status of the operation</returns>
+		public async Task SendAsync(string message)
+		{
+			var contents = new Dictionary<string, string>
+			{
+				{ "content", message },
+				{ "username", _username },
+				{ "avatar_url", _avatarUrl }
+			};
+
+			await WebhookClient.PostAsync(_url, new FormUrlEncodedContent(contents));
+		}
+
+		/// <summary>
+		///     Sends a webhook object to the Discord webhook asynchronously
+		/// </summary>
+		/// <param name="obj">The object to send to the webhook</param>
+		/// <returns>A <see cref="Task" /> representing the status of the operation</returns>
+		public async Task SendAsync(WebhookObject obj)
+		{
+			var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
+
+			await WebhookClient.PostAsync(_url, json);
+		}
+
+		/// <summary>
+		///     Deletes the webhook asynchronously
+		/// </summary>
+		/// <returns>A <see cref="Task" /> representing the status of the operation</returns>
+		public async Task DeleteAsync()
+		{
+			await WebhookClient.DeleteAsync(_url);
+		}
 	}
 }
