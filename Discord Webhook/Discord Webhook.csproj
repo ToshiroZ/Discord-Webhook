@@ -23,6 +23,7 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>discord-webhook.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
+        <PackageIcon>logo.png</PackageIcon>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
