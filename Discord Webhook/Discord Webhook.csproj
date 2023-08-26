@@ -5,6 +5,7 @@
         <RootNamespace>Discord.Webhook</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Discord.Webhook</PackageId>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
@@ -30,7 +31,9 @@
       <DocumentationFile>bin\Release\netstandard2.0\Discord Webhook.xml</DocumentationFile>
     </PropertyGroup>
 
-
-
-
-</Project>
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath="\"/>
+        <None Include="logo.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
+</Project> 
