@@ -1,12 +1,12 @@
 # Discord.Webhook
 
-Used for sending webhooks to  discord using the discord webhook url. It is also dependency free.
+Used for sending webhook messages to Discord using a Discord Webhook URL - Also dependency free!
 
 [![NuGet version](https://badge.fury.io/nu/Discord.Webhook.svg)](https://badge.fury.io/nu/Discord.Webhook)
 
 ### Sample
 
-#### Creating  WebhookObject
+#### Creating a WebhookObject
 
 ```c#
 var webobj = new WebhookObject();
