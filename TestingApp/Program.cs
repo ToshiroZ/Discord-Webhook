@@ -17,9 +17,9 @@ public static class Program
 			return;
 		}
 
-		var webobj = new WebhookObject();
+		var obj = new WebhookObject();
 
-		webobj.AddEmbed(builder =>
+		obj.AddEmbed(builder =>
 		{
 			builder.WithTitle("Discord-Webhook lib")
 				.WithDescription("Building embed with 'AddEmbed(Action<EmbedBuilder> embedBuilderFunction)'")
@@ -32,12 +32,13 @@ public static class Program
 					"https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg");
 		});
 
-		webobj.AddEmbed(new EmbedBuilder()
+		obj.AddEmbed(new EmbedBuilder()
 			.WithTitle("Discord-Webhook lib second message")
 			.WithDescription("Testing discord Webhook")
 			.WithColor(Colors.Orange)
 		);
 
-		await new Webhook(url, "Webhook library test", "https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg").SendAsync(webobj);
+		await Webhook.SendAsync(url, obj, "Webhook library test",
+			"https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg");
 	}
 }

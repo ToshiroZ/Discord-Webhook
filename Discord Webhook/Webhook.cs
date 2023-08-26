@@ -51,6 +51,32 @@ public class Webhook
 	}
 
 	/// <summary>
+	///     Constructs a new Discord webhook object and immediately sends the request, useful for one-time webhook requests
+	/// </summary>
+	/// <exception cref="DiscordWebhookException">Thrown when Discord returns an error, the message contains the details</exception>
+	/// <exception cref="ArgumentException">
+	///     Thrown when one of the arguments provided does not match validation rules set at
+	///     Discord's end, for example the username cannot contain 'Discord'.
+	/// </exception>
+	/// <param name="webhookUrl">The Discord webhook URL</param>
+	/// <param name="obj">The webhook object to send to the webhook URL</param>
+	/// <param name="username">
+	///     The username the webhook will send with, if its null defaults to what was assigned in the webhook
+	///     menu on Discord
+	/// </param>
+	/// <param name="avatarUrl">
+	///     The URL that points to the avatar image the webhook will use, if its null defaults to what was assigned in the
+	///     webhook menu on Discord
+	/// </param>
+	/// <param name="threadName">The name of the thread to put the webhook message in</param>
+	public static async Task SendAsync(string webhookUrl, WebhookObject obj, string? username = null, string? avatarUrl = null,
+		string? threadName = null)
+	{
+		var webhook = new Webhook(webhookUrl, username, avatarUrl, threadName);
+		await webhook.SendAsync(obj);
+	}
+
+	/// <summary>
 	///     Executes the Discord webhook request
 	/// </summary>
 	/// <param name="content">The content to send to Discord</param>
