@@ -95,6 +95,8 @@ namespace Discord.Webhook
 		/// <returns>A <see cref="Task" /> representing the status of the operation</returns>
 		public async Task SendAsync(WebhookObject obj)
 		{
+			obj.username = _username ?? obj.username;
+			obj.avatar_url = _username == null ? obj.avatar_url : _avatarUrl;
 			var json = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
 			await WebhookClient.PostAsync(_url, json);
