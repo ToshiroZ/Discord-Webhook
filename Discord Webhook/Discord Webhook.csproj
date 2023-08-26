@@ -10,16 +10,14 @@
         <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
         <Description>Used for sending webhook messages to Discord using a Discord Webhook URL - Also dependency free!</Description>
         <Authors>Toshiro Tanazaki</Authors>
-        <PackageLicenseFile></PackageLicenseFile>
         <Version>1.0.9</Version>
         <PackageReleaseNotes>https://github.com/ToshiroZ/Discord-Webhook/releases/1.0.9</PackageReleaseNotes>
-        <AssemblyVersion>1.0.8</AssemblyVersion>
-        <FileVersion>1.0.8</FileVersion>
+        <AssemblyVersion>1.0.9</AssemblyVersion>
+        <FileVersion>1.0.9</FileVersion>
         <LangVersion>latestmajor</LangVersion>
         <Nullable>enable</Nullable>
         <Title>Discord.Webhook</Title>
         <Copyright>Copyright (c) 2023 ToshiroZ </Copyright>
-        <PackageLicenseUrl>https://github.com/ToshiroZ/Discord-Webhook/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <NeutralLanguage>en</NeutralLanguage>
         <SignAssembly>true</SignAssembly>

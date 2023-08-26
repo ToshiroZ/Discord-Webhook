@@ -38,6 +38,6 @@ public static class Program
 			.WithColor(Colors.Orange)
 		);
 
-		await new Webhook(url, "Webhook library test", "https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg", "test-thread").SendAsync(webobj);
+		await new Webhook(url, "Webhook library test", "https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg").SendAsync(webobj);
 	}
 }

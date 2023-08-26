@@ -10,7 +10,7 @@ public class DiscordError
 	/// <summary>
 	///     The error code thrown by Discord
 	/// </summary>
-	[DataMember] public ushort code;
+	[DataMember] public uint code;
 
 	/// <summary>
 	///     The (hopefully) friendly message detailing as to why the request failed
