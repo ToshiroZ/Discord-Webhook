@@ -66,7 +66,7 @@ await Webhook.SendAsync("my-webhook-url", webhookObject, "username", "avatar url
 
 ### Result
 
-![image](https://github.com/celldra/Discord-Webhook/assets/124086032/2c316af7-59c3-4583-8f78-763a1d1284d8)
+![image](https://raw.githubusercontent.com/ToshiroZ/Discord-Webhook/master/example.png)
 
 
 ## Error handling
