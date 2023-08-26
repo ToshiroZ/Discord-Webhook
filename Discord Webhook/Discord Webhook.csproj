@@ -16,6 +16,11 @@
         <PackageReleaseNotes>Added EmbedBuilder</PackageReleaseNotes>
         <AssemblyVersion>1.0.4.0</AssemblyVersion>
         <FileVersion>1.0.4.0</FileVersion>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
+
+
+
 
 </Project>
