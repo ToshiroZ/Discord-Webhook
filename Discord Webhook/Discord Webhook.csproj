@@ -8,16 +8,27 @@
         <PackageProjectUrl>https://github.com/ToshiroZ/Discord-Webhook</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/ToshiroZ/Discord-Webhook</RepositoryUrl>
-        <Description>Used for sending webhooks to  discord using the discord webhook url
-            it is also dependency free</Description>
+        <Description>Used for sending webhook messages to Discord using a Discord Webhook URL - Also dependency free!</Description>
         <Authors>Toshiro Tanazaki</Authors>
         <PackageLicenseFile></PackageLicenseFile>
-        <Version>1.0.4</Version>
-        <PackageReleaseNotes>Added EmbedBuilder</PackageReleaseNotes>
-        <AssemblyVersion>1.0.4.0</AssemblyVersion>
-        <FileVersion>1.0.4.0</FileVersion>
+        <Version>1.0.9</Version>
+        <PackageReleaseNotes>https://github.com/ToshiroZ/Discord-Webhook/releases/1.0.9</PackageReleaseNotes>
+        <AssemblyVersion>1.0.8</AssemblyVersion>
+        <FileVersion>1.0.8</FileVersion>
         <LangVersion>latestmajor</LangVersion>
         <Nullable>enable</Nullable>
+        <Title>Discord.Webhook</Title>
+        <Copyright>Copyright (c) 2023 ToshiroZ </Copyright>
+        <PackageLicenseUrl>https://github.com/ToshiroZ/Discord-Webhook/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <NeutralLanguage>en</NeutralLanguage>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>discord-webhook.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>true</PublicSign>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\netstandard2.0\Discord Webhook.xml</DocumentationFile>
     </PropertyGroup>
 
 
