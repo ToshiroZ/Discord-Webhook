@@ -29,7 +29,7 @@ public static class Program
 				.WithImage("https://i.imgur.com/ZGPxFN2.jpg")
 				.AddField("New Field", "This is a new field")
 				.WithFooter("DiscordUser",
-					"https://discord.com/api/webhooks/1144978232840573100/9p1EXYwMek0c3y9dUfPr4PGK3_B9dzASIsuSoufj0_i3o5FXTrpOvY11DL2grvMi2T9C");
+					"https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg");
 		});
 
 		webobj.AddEmbed(new EmbedBuilder()
