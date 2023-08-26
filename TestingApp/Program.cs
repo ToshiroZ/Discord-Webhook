@@ -1,37 +1,43 @@
-﻿using Discord.Webhook;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
+using Discord.Webhook;
 
-namespace TestingApp
+namespace TestingApp;
+
+public static class Program
 {
-    class Program
-    {
-        static async Task Main(string[] args)
-        {
-            var url = Console.ReadLine();
+	public static async Task Main(string[] args)
+	{
+		Console.WriteLine("Enter a Discord Webhook URL to test with:");
+		var url = Console.ReadLine();
 
-            var webobj = new WebhookObject();
+		if (url is null)
+		{
+			Console.WriteLine("Set an actual URL, dummy");
+			return;
+		}
 
-            webobj.AddEmbed(builder =>
-            {
-                builder.WithTitle("Discord-Webhook lib")
-                    .WithDescription("Building embed with 'AddEmbed(Action<EmbedBuilder> embedBuilderFunction)'")
-                    .WithUrl("https://github.com/ToshiroZ/Discord-Webhook")
-                    .WithThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Font_Awesome_5_brands_discord_color.svg/800px-Font_Awesome_5_brands_discord_color.svg.png")
-                    .WithColor(Colors.Magenta)
-                    .WithImage("https://i.imgur.com/ZGPxFN2.jpg")
-                    .AddField("New Field", "This is a new field")
-                    .WithFooter("DiscordUser", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Font_Awesome_5_brands_discord_color.svg/800px-Font_Awesome_5_brands_discord_color.svg.png");
-            });
-                
-            webobj.AddEmbed(new EmbedBuilder()
-                    .WithTitle("Discord-Webhook lib second message")
-                    .WithDescription("Testing discord Webhook")
-                    .WithColor(Colors.Orange)
-            );
+		var webobj = new WebhookObject();
 
-            await new Webhook(url).SendAsync(webobj);
-        }
-    }
+		webobj.AddEmbed(builder =>
+		{
+			builder.WithTitle("Discord-Webhook lib")
+				.WithDescription("Building embed with 'AddEmbed(Action<EmbedBuilder> embedBuilderFunction)'")
+				.WithUrl("https://github.com/ToshiroZ/Discord-Webhook")
+				.WithThumbnail("https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg")
+				.WithColor(Colors.Magenta)
+				.WithImage("https://i.imgur.com/ZGPxFN2.jpg")
+				.AddField("New Field", "This is a new field")
+				.WithFooter("DiscordUser",
+					"https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg");
+		});
+
+		webobj.AddEmbed(new EmbedBuilder()
+			.WithTitle("Discord-Webhook lib second message")
+			.WithDescription("Testing discord Webhook")
+			.WithColor(Colors.Orange)
+		);
+
+		await new Webhook(url, "Webhook library test", "https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg").SendAsync(webobj);
+	}
 }
