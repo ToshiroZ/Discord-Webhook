@@ -146,6 +146,11 @@ public class Embed
 	[DataMember] public string? url;
 
 	/// <summary>
+	///     the timestamp of the embed
+	/// </summary>
+	[DataMember] public string? timestamp;
+
+	/// <summary>
 	///     the color of the embed
 	/// </summary>
 	public DColor Color = Colors.Black;
