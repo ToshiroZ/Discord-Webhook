@@ -24,6 +24,7 @@ public static class Program
 			builder.WithTitle("Discord-Webhook lib")
 				.WithDescription("Building embed with 'AddEmbed(Action<EmbedBuilder> embedBuilderFunction)'")
 				.WithUrl("https://github.com/ToshiroZ/Discord-Webhook")
+				.WithTimestamp(DateTime.UtcNow)
 				.WithThumbnail("https://www.thegatewaypundit.com/wp-content/uploads/trump-mugshot-1.jpg")
 				.WithColor(Colors.Magenta)
 				.WithImage("https://i.imgur.com/ZGPxFN2.jpg")
