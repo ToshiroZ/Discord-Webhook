@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Discord.Webhook;
@@ -10,6 +11,7 @@ public class EmbedBuilder
 	private string? _title;
 	private string? _description;
 	private string? _url;
+	private DateTime? _timestamp;
 	private Image? _image;
 	private Thumbnail? _thumbnail;
 	private readonly List<Field> _fields = new();
@@ -142,6 +144,17 @@ public class EmbedBuilder
 	}
 
 	/// <summary>
+	///     Sets the timestamp of the embed, this appears at the bottom of the embed
+	/// </summary>
+	/// <param name="url">The timestamp to display on the embed</param>
+	/// <returns>The updated embed builder</returns>
+	public EmbedBuilder WithTimestamp(DateTime timestamp)
+	{
+		_timestamp = timestamp;
+		return this;
+	}
+
+	/// <summary>
 	///     Sets a video on the embed using a <see cref="Video" />
 	/// </summary>
 	/// <param name="video">The <see cref="Video" /> which represents the media to show on the embed</param>
@@ -201,6 +214,7 @@ public class EmbedBuilder
 			thumbnail = _thumbnail,
 			footer = _footer,
 			url = _url,
+			timestamp = _timestamp?.ToString("O"),
 			video = _video,
 			author = _author,
 			provider = _provider
