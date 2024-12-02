@@ -10,10 +10,10 @@ public class DiscordError
 	/// <summary>
 	///     The error code thrown by Discord
 	/// </summary>
-	[DataMember] public uint code;
+	[DataMember(Name = "code")] public uint Code;
 
 	/// <summary>
 	///     The (hopefully) friendly message detailing as to why the request failed
 	/// </summary>
-	[DataMember] public string message = null!;
+	[DataMember(Name = "message")] public string Message = null!;
 }

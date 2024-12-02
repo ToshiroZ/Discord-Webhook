@@ -22,7 +22,7 @@ public static class Extensions
 	/// <exception cref="ArgumentException">Thrown when the validation fails</exception>
 	internal static void ValidateWebhookUsername(this string? u)
 	{
-		// The reason this is built like this is because it's internal therefore we want it to be simple to implement
+		// The reason this is built like this is that it is internal therefore we want it to be simple to implement
 		if (u?.ToLower().Contains("discord") == true)
 			throw new ArgumentException(
 				// ReSharper disable once NotResolvedInText

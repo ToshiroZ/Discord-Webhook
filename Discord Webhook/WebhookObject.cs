@@ -1,384 +1,408 @@
-﻿using System;
+﻿namespace Discord.Webhook;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-// ReSharper disable InconsistentNaming
-
-namespace Discord.Webhook;
-
 /// <summary>
-///     The webhook message object, allows you to set plaintext messages, images or embeds
+///     Represents a webhook message object allowing configuration of plaintext messages, images, or embeds.
+///     This class can be utilized within the Discord webhook framework to structure content sent to webhooks.
 /// </summary>
 [DataContract]
 public class WebhookObject
 {
-	/// <summary>
-	///     Just a basic constructor
-	/// </summary>
-	public WebhookObject()
-	{
-		embeds = new List<Embed>();
-		content = null;
-	}
+    /// <summary>
+    ///     The webhook message object, allows you to set plaintext messages, images or embeds
+    /// </summary>
+    public WebhookObject()
+    {
+        Embeds = [];
+        Content = null;
+    }
 
-	/// <summary>
-	///     The message of the embed
-	/// </summary>
-	[DataMember] public string? content;
+    /// <summary>
+    ///     The message of the embed
+    /// </summary>
+    [DataMember(Name = "content")] public string? Content;
 
-	/// <summary>
-	///     the username you shouldn't be able to see this
-	/// </summary>
-	[DataMember] internal string? username;
+    /// <summary>
+    ///     Represents the username for the webhook message.
+    /// </summary>
+    [DataMember(Name = "username")] internal string? Username;
 
-	/// <summary>
-	///     the avatar_url you shouldn't be able to see this
-	/// </summary>
-	[DataMember] internal string? avatar_url;
+    /// <summary>
+    ///     The avatar URL for the webhook sender. This is an internal field that should not be exposed externally.
+    /// </summary>
+    [DataMember(Name = "avatar_url")] internal string? AvatarUrl;
 
-	/// <summary>
-	///     The name of thread to create (requires the webhook channel to be a forum channel)
-	/// </summary>
-	[DataMember] internal string? thread_name;
+    /// <summary>
+    ///     The name of the thread to create (requires the webhook channel to be a forum channel)
+    /// </summary>
+    [DataMember(Name = "thread_name")] internal string? ThreadName;
 
-	/// <summary>
-	///     will the content be read out
-	/// </summary>
-	[DataMember] public bool tts;
+    /// <summary>
+    ///     Indicates whether the content will be read out loud using text-to-speech.
+    /// </summary>
+    [DataMember(Name = "tts")] public bool IsTextToSpeech;
 
-	/// <summary>
-	///     the embeds to send with the webhook there is a max of 25
-	/// </summary>
-	[DataMember] public List<Embed> embeds;
+    /// <summary>
+    ///     The collection of embeds to send with the webhook, with a maximum limit of 25 embeds per message.
+    /// </summary>
+    [DataMember(Name = "embeds")] public List<Embed> Embeds;
 
-	/// <summary>
-	///     converts the <see cref="WebhookObject" /> to JSON for posting to the URL
-	/// </summary>
-	/// <returns>The JSON string</returns>
-	public override string ToString()
-	{
-		// Set the content, ensure it is never null
-		content ??= string.Empty;
+    /// <summary>
+    ///     Converts the <see cref="WebhookObject" /> to a JSON string representation
+    ///     for posting to a webhook URL.
+    /// </summary>
+    /// <returns>A JSON string representing the <see cref="WebhookObject" />.</returns>
+    public override string ToString()
+    {
+        // Set the content, ensure it is never null
+        Content ??= string.Empty;
 
-		// Check if more than 25 embeds have been added
-		if (embeds.Count > 25) throw new Exception("You can only have a maximum of 25 embeds in a message");
+        // Check if more than 25 embeds have been added
+        if (Embeds.Count > 25) throw new Exception("You can only have a maximum of 25 embeds in a message");
 
-		// Check if any of the embeds have more than 25 fields
-		if (embeds.Any(x => x.fields.Count > 25))
-			throw new Exception("You can only have a maximum of 25 fields in an embed");
+        // Check if any of the embeds have more than 25 fields
+        if (Embeds.Any(x => x.Fields.Count > 25))
+            throw new Exception("You can only have a maximum of 25 fields in an embed");
 
-		// Check if the message has a content length of more than 1024 characters
-		if (content.Length > 1024)
-			throw new Exception("You can only have a maximum of 1024 characters in a message");
+        // Check if the message has a content length of more than 1024 characters
+        if (Content.Length > 1024)
+            throw new Exception("You can only have a maximum of 1024 characters in a message");
 
-		// Check if any of the embeds have a description or any fields that are longer than 1024 characters
-		if (embeds.Any(x => x.description?.Length > 1024 || x.fields.Any(y => y.value.ToString().Length > 1024)))
-			throw new Exception("You can only have a maximum of 1024 characters in a message");
+        // Check if any of the embeds have a description or any fields that are longer than 1024 characters
+        if (Embeds.Any(x => x.Description?.Length > 1024 || x.Fields.Any(y => y.Value.ToString().Length > 1024)))
+            throw new Exception("You can only have a maximum of 1024 characters in a message");
 
-		// Loop through and set the colors, default value being black
-		foreach (var embed in embeds) embed.color = (int)embed.Color.RawValue;
+        // Loop through and set the colors, default value being black
+        foreach (var embed in Embeds) embed.ColorInt = (int)embed.Color.RawValue;
 
-		// Serialize the object to JSON and return
-		return JsonSerializer<WebhookObject>.Serialize(this);
-	}
+        // Serialize the object to JSON and return
+        return JsonSerializer<WebhookObject>.Serialize(this);
+    }
 
-	/// <summary>
-	///     Adds an embed using the <see cref="EmbedBuilder" />
-	/// </summary>
-	/// <param name="builder">The builder to use when adding the embed</param>
-	/// <returns>The updated <see cref="WebhookObject" /> with the new embed</returns>
-	public WebhookObject AddEmbed(EmbedBuilder builder)
-	{
-		embeds.Add(builder.Build());
-		return this;
-	}
+    /// <summary>
+    ///     Adds an embed using the <see cref="EmbedBuilder" />.
+    /// </summary>
+    /// <param name="builder">The builder to use when adding the embed.</param>
+    /// <returns>The updated <see cref="WebhookObject" /> with the new embed.</returns>
+    public WebhookObject AddEmbed(EmbedBuilder builder)
+    {
+        Embeds.Add(builder.Build());
+        return this;
+    }
 
-	/// <summary>
-	///     Adds an embed
-	/// </summary>
-	/// <param name="embed">The embed to add to the collection</param>
-	/// <returns>The updated <see cref="WebhookObject" /> with the new embed</returns>
-	public WebhookObject AddEmbed(Embed embed)
-	{
-		embeds.Add(embed);
-		return this;
-	}
+    /// <summary>
+    ///     Adds an embed
+    /// </summary>
+    /// <param name="embed">The embed to add to the collection</param>
+    /// <returns>The updated <see cref="WebhookObject" /> with the new embed</returns>
+    public WebhookObject AddEmbed(Embed embed)
+    {
+        Embeds.Add(embed);
+        return this;
+    }
 
-	/// <summary>
-	///     Adds an embed using the <see cref="EmbedBuilder" /> with an <see cref="Action" />
-	/// </summary>
-	/// <param name="builder">The builder to use when adding the embed</param>
-	public WebhookObject AddEmbed(Action<EmbedBuilder> builder)
-	{
-		var embedBuilder = new EmbedBuilder();
-		builder(embedBuilder);
-		AddEmbed(embedBuilder);
+    /// <summary>
+    ///     Adds an embed to the webhook object using a specified <see cref="Action{T}" /> to configure the
+    ///     <see cref="EmbedBuilder" />.
+    /// </summary>
+    /// <param name="builder">An action that configures the <see cref="EmbedBuilder" /> with desired properties.</param>
+    /// <returns>The instance of the <see cref="WebhookObject" /> with the newly added embed.</returns>
+    public WebhookObject AddEmbed(Action<EmbedBuilder> builder)
+    {
+        var embedBuilder = new EmbedBuilder();
+        builder(embedBuilder);
+        AddEmbed(embedBuilder);
 
-		return this;
-	}
+        return this;
+    }
 }
 
 /// <summary>
-///     the embed class
+///     Represents an embed structure used in webhook messages, including fields such as title, description, color, and
+///     other media elements.
 /// </summary>
 [DataContract]
 public class Embed
 {
-	/// <summary>
-	///     the title of the embed
-	/// </summary>
-	[DataMember] public string? title;
+    /// <summary>
+    ///     The title of the embed
+    /// </summary>
+    [DataMember(Name = "title")] public string? Title;
 
-	/// <summary>
-	///     the type of embed
-	/// </summary>
-	[DataMember] public string? type;
+    /// <summary>
+    ///     The type of the embed
+    /// </summary>
+    [DataMember(Name = "type")] public string? Type;
 
-	/// <summary>
-	///     the message in the embed
-	/// </summary>
-	[DataMember] public string? description;
+    /// <summary>
+    ///     The message in the embed
+    /// </summary>
+    [DataMember(Name = "description")] public string? Description;
 
-	/// <summary>
-	///     the url the title links to
-	/// </summary>
-	[DataMember] public string? url;
+    /// <summary>
+    ///     The URL that the embed title links to
+    /// </summary>
+    [DataMember(Name = "url")] public string? Url;
 
-	/// <summary>
-	///     the timestamp of the embed
-	/// </summary>
-	[DataMember] public string? timestamp;
+    /// <summary>
+    ///     The timestamp of the embed
+    /// </summary>
+    [DataMember(Name = "timestamp")] public string? Timestamp;
 
-	/// <summary>
-	///     the color of the embed
-	/// </summary>
-	public DColor Color = Colors.Black;
+    /// <summary>
+    ///     Represents the color of the embed
+    /// </summary>
+    public DColor Color = Colors.Black;
 
-	/// <summary>
-	///     the discord int color of the color you shouldnt see this
-	/// </summary>
-	[DataMember] internal int color;
+    /// <summary>
+    ///     The internal integer representation of the embed's color.
+    /// </summary>
+    [DataMember(Name = "color")] internal int ColorInt;
 
-	/// <summary>
-	///     the footer of the embed
-	/// </summary>
-	[DataMember] public Footer? footer;
+    /// <summary>
+    ///     The footer of the embed
+    /// </summary>
+    [DataMember(Name = "footer")] public Footer? Footer;
 
-	/// <summary>
-	///     the image the embed will have
-	/// </summary>
-	[DataMember] public Image? image;
+    /// <summary>
+    ///     The image associated with the embed
+    /// </summary>
+    [DataMember(Name = "image")] public Image? Image;
 
-	/// <summary>
-	///     the thumbnail of the embed
-	/// </summary>
-	[DataMember] public Thumbnail? thumbnail;
+    /// <summary>
+    ///     The thumbnail of the embed
+    /// </summary>
+    [DataMember(Name = "thumbnail")] public Thumbnail? Thumbnail;
 
-	/// <summary>
-	///     any videos the embed will play
-	/// </summary>
-	[DataMember] public Video? video;
+    /// <summary>
+    ///     Any videos the embed will play
+    /// </summary>
+    [DataMember(Name = "video")] public Video? Video;
 
-	/// <summary>
-	///     the provider of the embed
-	/// </summary>
-	[DataMember] public Provider? provider;
+    /// <summary>
+    ///     The provider of the embed
+    /// </summary>
+    [DataMember(Name = "provider")] public Provider? Provider;
 
-	/// <summary>
-	///     the author of the embed
-	/// </summary>
-	[DataMember] public Author? author;
+    /// <summary>
+    ///     The author of the embed
+    /// </summary>
+    [DataMember(Name = "author")] public Author? Author;
 
-	/// <summary>
-	///     the fields the embed can have capped at 25
-	/// </summary>
-	[DataMember] public List<Field> fields = new();
+    /// <summary>
+    ///     The fields the embed can have capped at 25
+    /// </summary>
+    [DataMember(Name = "fields")] public List<Field> Fields = [];
 }
 
+/// <summary>
+///     Represents a field in an embed, with a name, value, and inline display option.
+/// </summary>
 [DataContract]
 public class Field
 {
-	/// <summary>
-	///     the title of the field
-	/// </summary>
-	[DataMember] public string name = null!;
+    /// <summary>
+    ///     The title of the field
+    /// </summary>
+    [DataMember(Name = "name")] public string Name = null!;
 
-	/// <summary>
-	///     the content of the field
-	/// </summary>
-	[DataMember] public object value = null!;
+    /// <summary>
+    ///     The content of the field
+    /// </summary>
+    [DataMember(Name = "value")] public object Value = null!;
 
-	/// <summary>
-	///     whether the embed is inline
-	/// </summary>
-	[DataMember] public bool inline;
+    /// <summary>
+    ///     Whether the embed field is displayed inline with other fields
+    /// </summary>
+    [DataMember(Name = "inline")] public bool IsInline;
 }
 
+/// <summary>
+///     Represents the footer section of an embed, containing text and optional icon URLs.
+/// </summary>
 [DataContract]
 public class Footer
 {
-	/// <summary>
-	///     the footer text
-	/// </summary>
-	[DataMember] public string text = null!;
+    /// <summary>
+    ///     The text content of the footer
+    /// </summary>
+    [DataMember(Name = "text")] public string Text = null!;
 
-	/// <summary>
-	///     the url the icon will have
-	/// </summary>
-	[DataMember] public string? icon_url;
+    /// <summary>
+    ///     The URL for the footer icon
+    /// </summary>
+    [DataMember(Name = "icon_url")] public string? IconUrl;
 
-	/// <summary>
-	///     the proxy_icon_url ima be honest no clue but its in the docs so is here
-	/// </summary>
-	[DataMember] public string? proxy_icon_url;
+    /// <summary>
+    ///     The proxy URL for the icon.
+    /// </summary>
+    [DataMember(Name = "proxy_icon_url")] public string? ProxyIconUrl;
 }
 
+/// <summary>
+///     Represents an image with properties such as URL, proxy URL, height, and width for use in an embed.
+/// </summary>
 [DataContract]
 public class Image
 {
-	/// <summary>
-	///     the url of the image
-	/// </summary>
-	[DataMember] public string url = null!;
+    /// <summary>
+    ///     The URL of the image
+    /// </summary>
+    [DataMember(Name = "url")] public string Url = null!;
 
-	/// <summary>
-	///     the proxy_url to the image dont ask me its in the docs (a proxied url of the image)
-	/// </summary>
-	[DataMember] public string? proxy_url;
+    /// <summary>
+    ///     A proxied URL of the image
+    /// </summary>
+    [DataMember(Name = "proxy_url")] public string? ProxyUrl;
 
-	/// <summary>
-	///     the height in pixels the image will be
-	/// </summary>
-	[DataMember] public int? height;
+    /// <summary>
+    ///     The height in pixels the image will be
+    /// </summary>
+    [DataMember(Name = "height")] public int? Height;
 
-	/// <summary>
-	///     the width in pixels the image will be
-	/// </summary>
-	[DataMember] public int? width;
+    /// <summary>
+    ///     The width in pixels of the image
+    /// </summary>
+    [DataMember(Name = "width")] public int? Width;
 }
 
+/// <summary>
+///     Represents the thumbnail image of an embed, including attributes for image URL, proxy URL, and dimensions.
+/// </summary>
 [DataContract]
 public class Thumbnail
 {
-	/// <summary>
-	///     the url to the image
-	/// </summary>
-	[DataMember] public string url = null!;
+    /// <summary>
+    ///     The URL to the image used in the thumbnail
+    /// </summary>
+    [DataMember(Name = "url")] public string Url = null!;
 
-	/// <summary>
-	///     in the docs no idea
-	/// </summary>
-	[DataMember] public string? proxy_url;
+    /// <summary>
+    ///     A proxied URL of the image, used to access the image in certain network configurations.
+    /// </summary>
+    [DataMember(Name = "proxy_url")] public string? ProxyUrl;
 
-	/// <summary>
-	///     the height in pixels the image will be
-	/// </summary>
-	[DataMember] public int? height;
+    /// <summary>
+    ///     The height in pixels the image will be
+    /// </summary>
+    [DataMember(Name = "height")] public int? Height;
 
-	/// <summary>
-	///     the width in pixels the image will be
-	/// </summary>
-	[DataMember] public int? width;
+    /// <summary>
+    ///     The width in pixels the image will be
+    /// </summary>
+    [DataMember(Name = "width")] public int? Width;
 }
 
+/// <summary>
+///     Represents a video object within an embed, containing properties like URL, height, and width.
+/// </summary>
 [DataContract]
 public class Video
 {
-	/// <summary>
-	///     the url to the video
-	/// </summary>
-	[DataMember] public string? url;
-	
-	/// <summary>
-	///     in the docs no idea
-	/// </summary>
-	[DataMember] public string? proxy_url;
+    /// <summary>
+    ///     The URL associated with the embed or video
+    /// </summary>
+    [DataMember(Name = "url")] public string? Url;
 
-	/// <summary>
-	///     the height in pixels the videp will be
-	/// </summary>
-	[DataMember] public int? height;
+    /// <summary>
+    ///     The proxy URL of the video
+    /// </summary>
+    [DataMember(Name = "proxy_url")] public string? ProxyUrl;
 
-	/// <summary>
-	///     the width in pixels the video will be
-	/// </summary>
-	[DataMember] public int? width;
+    /// <summary>
+    ///     The height in pixels that the video will be displayed
+    /// </summary>
+    [DataMember(Name = "height")] public int? Height;
+
+    /// <summary>
+    ///     The width in pixels the video will be
+    /// </summary>
+    [DataMember(Name = "width")] public int? Width;
 }
 
+/// <summary>
+///     Represents the provider of the embed, including its name and URL.
+/// </summary>
 [DataContract]
 public class Provider
 {
-	/// <summary>
-	///     the provider name
-	/// </summary>
-	[DataMember] public string? name;
+    /// <summary>
+    ///     The provider name
+    /// </summary>
+    [DataMember(Name = "name")] public string? Name;
 
-	/// <summary>
-	///     the url to the provider
-	/// </summary>
-	[DataMember] public string? url;
+    /// <summary>
+    ///     The URL associated with the embed
+    /// </summary>
+    [DataMember(Name = "url")] public string? Url;
 }
 
+/// <summary>
+///     Represents the author information of an embed, including name, URL, and icon details.
+/// </summary>
 [DataContract]
 public class Author
 {
-	/// <summary>
-	///     the authors name
-	/// </summary>
-	[DataMember] public string name = null!;
+    /// <summary>
+    ///     The name associated with the author
+    /// </summary>
+    [DataMember(Name = "name")] public string Name = null!;
 
-	/// <summary>
-	///     the url the author should link to
-	/// </summary>
-	[DataMember] public string? url;
+    /// <summary>
+    ///     The URL associated with the embed, used to provide a hyperlink for the embed title
+    /// </summary>
+    [DataMember(Name = "url")] public string? Url;
 
-	/// <summary>
-	///     the authors icon
-	/// </summary>
-	[DataMember] public string? icon_url;
+    /// <summary>
+    ///     The URL to the author's icon
+    /// </summary>
+    [DataMember(Name = "icon_url")] public string? IconUrl;
 
-	[DataMember] public string? proxy_icon_url;
+    /// <summary>
+    ///     A proxied URL of the author's icon. Useful for displaying images behind a content delivery network.
+    /// </summary>
+    [DataMember(Name = "proxy_icon_url")] public string? ProxyIconUrl;
 }
 
+/// <summary>
+///     Represents a color used in Discord embeds to ensure compatibility with media and broader support.
+/// </summary>
 public class DColor
 {
-	internal uint RawValue { get; }
+    /// <summary>
+    ///     Represents the raw color value as a 32-bit unsigned integer.
+    /// </summary>
+    internal uint RawValue { get; }
 
-	/// <summary>
-	///     Creates a new color to send to discord
-	///     The reason it is not System.Drawing.Color is to ensure compat with the color in the media and to support more
-	///     people heading forward
-	/// </summary>
-	/// <param name="r">The 8-bit integer representing the red value</param>
-	/// <param name="g">The 8-bit integer representing the green value</param>
-	/// <param name="b">The 8-bit integer representing the blue value</param>
-	public DColor(int r, int g, int b)
-	{
-		// Validation to ensure the arguments are valid ints
-		if (r is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(r), "Value must be within [0,255].");
-		if (g is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(g), "Value must be within [0,255].");
-		if (b is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(b), "Value must be within [0,255].");
+    /// <summary>
+    ///     Represents a color value to be used in Discord webhooks.
+    ///     The class provides support for defining colors using RGB values.
+    /// </summary>
+    public DColor(int r, int g, int b)
+    {
+        // Validation to ensure the arguments are valid ints
+        if (r is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(r), "Value must be within [0,255].");
+        if (g is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(g), "Value must be within [0,255].");
+        if (b is < 0 or > 255) throw new ArgumentOutOfRangeException(nameof(b), "Value must be within [0,255].");
 
-		RawValue =
-			((uint)r << 16) |
-			((uint)g << 8) |
-			(uint)b;
-	}
-	
-	/// <summary>
-	///     Creates a new color to send to discord
-	///     The reason it is not System.Drawing.Color is to ensure compat with the color in the media and to support more
-	///     people heading forward
-	/// </summary>
-	/// <param name="r">The 8-bit integer representing the red value</param>
-	/// <param name="g">The 8-bit integer representing the green value</param>
-	/// <param name="b">The 8-bit integer representing the blue value</param>
-	public DColor(byte r, byte g, byte b)
-	{
-		RawValue =
-			((uint)r << 16) |
-			((uint)g << 8) |
-			b;
-	}
+        RawValue =
+            ((uint)r << 16) |
+            ((uint)g << 8) |
+            (uint)b;
+    }
+
+    /// <summary>
+    ///     Represents a custom color structure used in Discord webhooks, providing compatibility with media colors.
+    /// </summary>
+    public DColor(byte r, byte g, byte b)
+    {
+        RawValue =
+            ((uint)r << 16) |
+            ((uint)g << 8) |
+            b;
+    }
 }

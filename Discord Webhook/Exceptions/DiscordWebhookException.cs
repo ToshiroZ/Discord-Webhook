@@ -12,7 +12,7 @@ public class DiscordWebhookException : Exception
 	///     Constructs a <see cref="DiscordWebhookException" />
 	/// </summary>
 	/// <param name="error">The error thrown by Discord</param>
-	internal DiscordWebhookException(DiscordError error) : base(error.message)
+	internal DiscordWebhookException(DiscordError error) : base(error.Message)
 	{
 	}
 	

@@ -14,7 +14,7 @@ public class EmbedBuilder
 	private DateTime? _timestamp;
 	private Image? _image;
 	private Thumbnail? _thumbnail;
-	private readonly List<Field> _fields = new();
+	private readonly List<Field> _fields = [];
 	private Footer? _footer;
 	private DColor? _color = Colors.Black;
 	private Video? _video;
@@ -32,9 +32,9 @@ public class EmbedBuilder
 	{
 		_fields.Add(new Field
 		{
-			name = name,
-			value = value,
-			inline = inline
+			Name = name,
+			Value = value,
+			IsInline = inline
 		});
 
 		return this;
@@ -70,7 +70,7 @@ public class EmbedBuilder
 	/// <returns>The updated embed builder</returns>
 	public EmbedBuilder WithAuthor(string name, string? iconUrl = null)
 	{
-		_author = new Author { name = name, icon_url = iconUrl };
+		_author = new Author { Name = name, IconUrl = iconUrl };
 		return this;
 	}
 
@@ -94,9 +94,9 @@ public class EmbedBuilder
 	{
 		_image = new Image
 		{
-			url = imageUrl,
-			height = 200,
-			width = 200
+			Url = imageUrl,
+			Height = 200,
+			Width = 200
 		};
 
 		return this;
@@ -111,7 +111,7 @@ public class EmbedBuilder
 	{
 		_thumbnail = new Thumbnail
 		{
-			url = thumbnailUrl
+			Url = thumbnailUrl
 		};
 		return this;
 	}
@@ -126,8 +126,8 @@ public class EmbedBuilder
 	{
 		_footer = new Footer
 		{
-			text = text,
-			icon_url = iconUrl
+			Text = text,
+			IconUrl = iconUrl
 		};
 		return this;
 	}
@@ -146,7 +146,7 @@ public class EmbedBuilder
 	/// <summary>
 	///     Sets the timestamp of the embed, this appears at the bottom of the embed
 	/// </summary>
-	/// <param name="url">The timestamp to display on the embed</param>
+	/// <param name="timestamp">The timestamp to display on the embed</param>
 	/// <returns>The updated embed builder</returns>
 	public EmbedBuilder WithTimestamp(DateTime timestamp)
 	{
@@ -172,7 +172,7 @@ public class EmbedBuilder
 	/// <returns>The updated embed builder</returns>
 	public EmbedBuilder WithVideo(string videoUrl)
 	{
-		_video = new Video { url = videoUrl, height = 200, width = 200 };
+		_video = new Video { Url = videoUrl, Height = 200, Width = 200 };
 		return this;
 	}
 
@@ -206,18 +206,18 @@ public class EmbedBuilder
 	{
 		return new Embed
 		{
-			title = _title,
-			description = _description,
+			Title = _title,
+			Description = _description,
 			Color = _color ?? Colors.Black,
-			fields = _fields,
-			image = _image,
-			thumbnail = _thumbnail,
-			footer = _footer,
-			url = _url,
-			timestamp = _timestamp?.ToString("O"),
-			video = _video,
-			author = _author,
-			provider = _provider
+			Fields = _fields,
+			Image = _image,
+			Thumbnail = _thumbnail,
+			Footer = _footer,
+			Url = _url,
+			Timestamp = _timestamp?.ToString("O"),
+			Video = _video,
+			Author = _author,
+			Provider = _provider
 		};
 	}
 }
