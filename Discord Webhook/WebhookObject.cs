@@ -417,7 +417,7 @@ public class DColor
     /// <summary>
     ///     Converts a 32-bit unsigned integer color value to a <see cref="DColor"/> instance.
     /// </summary>
-    public static implicit operator DColor(uint rgb)
+    public static explicit operator DColor(uint rgb)
     {
         return new DColor(rgb);
     }
@@ -425,7 +425,7 @@ public class DColor
     /// <summary>
     ///     Converts a <see cref="DColor"/> instance to its equivalent unsigned integer representation.
     /// </summary>
-    public static implicit operator uint(DColor color)
+    public static explicit operator uint(DColor color)
     {
         return color.RawValue;
     }
