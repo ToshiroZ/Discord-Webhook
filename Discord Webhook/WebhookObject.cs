@@ -405,4 +405,28 @@ public class DColor
             ((uint)g << 8) |
             b;
     }
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="DColor"/> class using the specified raw color value.
+    /// </summary>
+    public DColor(uint rgb)
+    {
+        RawValue = rgb;
+    }
+
+    /// <summary>
+    ///     Converts a 32-bit unsigned integer color value to a <see cref="DColor"/> instance.
+    /// </summary>
+    public static explicit operator DColor(uint rgb)
+    {
+        return new DColor(rgb);
+    }
+
+    /// <summary>
+    ///     Converts a <see cref="DColor"/> instance to its equivalent unsigned integer representation.
+    /// </summary>
+    public static explicit operator uint(DColor color)
+    {
+        return color.RawValue;
+    }
 }
